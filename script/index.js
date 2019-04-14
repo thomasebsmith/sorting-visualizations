@@ -7,7 +7,6 @@
 // Use this script **after** all relevant HTML elements are loaded.
 
 (function(global) {
-
   /// HTML elements ///
 
   var algorithmSelectionEl = document.getElementById("algorithm-selection");
@@ -29,7 +28,7 @@
     visualizerEl.contentWindow.postMessage({
       type: "load-algorithm",
       value: name
-    });
+    }, global.location.origin);
   };
   
   /// Event listeners ///

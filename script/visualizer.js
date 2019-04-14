@@ -90,7 +90,10 @@
   
   /// Event listeners ///
   global.addEventListener("message", function(event) {
-    parseMessage(event.data);
+    // Only accept messages from the parent
+    if (event.origin === global.location.origin) {
+      parseMessage(event.data);
+    }
   });
 
   // Fit canvas to frame size
