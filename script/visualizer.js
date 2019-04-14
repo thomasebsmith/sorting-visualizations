@@ -88,4 +88,8 @@
   global.addEventListener("message", function(event) {
     parseMessage(event.data);
   });
+
+  // Fit canvas to frame size
+  canvasEl.width = canvasEl.offsetWidth;
+  canvasEl.height = canvasEl.offsetHeight;
 })(window);
