@@ -28,12 +28,15 @@
   //  algorithm does not exist.
   var loadAlgorithm = function(name) {
     if (Object.prototype.hasOwnProperty.call(global.algorithms, name)) {
+      if (currentIntervalID !== null) {
+        global.clearInterval(currentIntervalID);
+      }
       var algorithm = new global.algorithms[name](getRandomData(numberOfData));
       var iterationsPerInterval =
         Math.ceil(50 / algorithm.getStepDelay(numberOfData));
       var intervalLength =
         iterationsPerInterval * algorithm.getStepDelay(numberOfData);
-      setInterval(function(algorithm) {
+      currentIntervalID = global.setInterval(function(algorithm) {
         visualizeData(algorithm.getData());
         if (algorithm.isDone()) {
           algorithm.reset(getRandomData(numberOfData));
@@ -83,6 +86,7 @@
     "load-algorithm": loadAlgorithm
   };
   var numberOfData = (canvasEl.width / 5) | 0;
+  var currentIntervalID = null;
   
   /// Event listeners ///
   global.addEventListener("message", function(event) {
