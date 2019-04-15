@@ -93,8 +93,47 @@
     this.data[this.j] = temp;
   };
 
+  var BubbleSort = function(data) {
+    this.reset(data);
+  };
+  BubbleSort.prototype.getData = function() {
+    return this.data;
+  };
+  BubbleSort.prototype.getStepDelay = function(size) {
+    return 50000 / size / size;
+  };
+  BubbleSort.prototype.isDone = function() {
+    return this.done;
+  };
+  BubbleSort.prototype.reset = function(data) {
+    this.data = data;
+    this.done = false;
+    this.swapOccurred = false;
+    this.i = 0;
+  };
+  BubbleSort.prototype.step = function() {
+    if (this.data[this.i] > this.data[this.i + 1]) {
+      // Swap the element and its successor
+      var temp = this.data[this.i];
+      this.data[this.i] = this.data[this.i + 1];
+      this.data[this.i + 1] = temp;
+      this.swapOccurred = true;
+    }
+
+    // Increment loop counter and check for completion
+    ++this.i;
+    if (this.i >= this.data.length - 1) {
+      if (!this.swapOccurred) {
+        this.done = true;
+      }
+      this.i = 0;
+      this.swapOccurred = false;
+      return;
+    }
+  };
 
   global.algorithms = {
+    "bubble": BubbleSort,
     "insertion": InsertionSort,
     "selection": SelectionSort,
   };

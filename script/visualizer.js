@@ -2,8 +2,7 @@
   /// JavaScript types and values ///
   var Array = global.Array;
   var Math = global.Math; var Object = global.Object;
-  var undefined;
-
+  var undefined; 
   /// HTML elements ///
   var canvasEl = document.getElementById("visualization");
 
@@ -99,4 +98,16 @@
   // Fit canvas to frame size
   canvasEl.width = canvasEl.offsetWidth;
   canvasEl.height = canvasEl.offsetHeight;
+
+  // Check for a query string. If there is a query string with an
+  //  `algorithm` key, load that algorithm initially.
+  var queryIndex = global.location.search.indexOf("?algorithm=");
+  if (queryIndex !== -1) {
+    var endIndex = global.location.search.indexOf("&", queryIndex);
+    if (endIndex === -1) {
+      endIndex = global.location.search.length;
+    }
+    loadAlgorithm(global.location.search.substring(
+      queryIndex + "?algorithm=".length, endIndex));
+  }
 })(window);
